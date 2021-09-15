@@ -10,15 +10,25 @@ describe('Grupo de testes - Intercept',()=>{
     const fields = {
         usuario: '[name="usuario"]',
         senha: '[name="senha"]',
-        entrar: '.hidden-xs'
+        entrar: '.hidden-xs',
+        pesquisar: '#btn-pesquisar'
+    }
+
+    const urls = {
+        login: '/admin',
+        auth: '/admin/aut.php',
+        relatorio: {
+            method: 'POST',
+            url: '/admin/relatorio.php'
+        }    
     }
 
     beforeEach('Login', ()=>{
-        cy.visit('/admin');
+        cy.visit(urls.login);
         cy.get(fields.usuario).type(data.usuario);
         cy.get(fields.senha).type(data.senha);
 
-        cy.intercept('/admin/aut.php').as('login');
+        cy.intercept(urls.auth.url).as('login');
         cy.get(fields.entrar).click();
         cy.wait('@login');
         cy.get('body').should('contain', 'Início');
@@ -26,10 +36,10 @@ describe('Grupo de testes - Intercept',()=>{
 
 
     it('Teste 1 - Intercept', ()=>{
-      cy.visit('/admin/relatorio.php');
+      cy.visit(urls.relatorio);
 
-      cy.intercept('POST', '/admin/relatorio.php', {statusCode: 200}).as('registros');
-      cy.get('#btn-pesquisar').click();
+      cy.intercept(urls.relatorio.method, urls.relatorio.url, {statusCode: 200}).as('registros');
+      cy.get(fields.pesquisar).click();
       cy.wait('@registros');
     });
 });
