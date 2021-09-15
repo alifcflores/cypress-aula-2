@@ -3,8 +3,8 @@
 describe('Grupo de testes - Intercept',()=>{
 
     const data = {
-        usuario: 'alif.flores@credpago.com',
-        senha: 'Afcred@2021'
+        usuario: '',
+        senha: ''
     }
 
     const fields = {
