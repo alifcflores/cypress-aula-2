@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "btoa": "^1.2.1",
-    "cypress": "^8.4.0"
+    "cypress": "^8.4.1"
   }
 }
